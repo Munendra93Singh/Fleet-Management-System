@@ -1,0 +1,9 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/FleetManagementAPI/bin/Debug/netcoreapp3.1
+/CRMRepository/obj/Debug/netcoreapp3.1
+/CRMRepository/obj
+/CRMRepository/bin/Debug/netcoreapp3.1
+/FleetManagementAPI/obj
