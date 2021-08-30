@@ -3,14 +3,16 @@ using System.Collections.Generic;
 using System.Text;
 using CRMRepository.IRepository;
 using CRMRepository.Repository;
-
+using FleetManagementRepository.IRepository;
+using FleetManagementRepository.Repository;
 
 namespace CRMRepository
 {
     public class RepositoryWrapper : IRepositoryWrapper
     {
         private CRMContext _cRMContext;
-        private ApiDriverRepos _apiDriver;
+        private IApiDriverRepos _apiDriver;
+        private IParentBranchRepos _ParentBranch;
         public IApiDriverRepos ApiDriver
         {
             get
@@ -21,6 +23,19 @@ namespace CRMRepository
                     
                 }
                 return _apiDriver;
+            }
+        }
+
+        public IParentBranchRepos ParentBranch
+        {
+            get
+            {
+                if (_ParentBranch == null)
+                {
+                    _ParentBranch = new ParentBranchRepos(_cRMContext);
+
+                }
+                return _ParentBranch;
             }
         }
 

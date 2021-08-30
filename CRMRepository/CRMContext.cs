@@ -1,4 +1,5 @@
 ﻿using CRMRepository.Models;
+using FleetManagementRepository.Models;
 using Microsoft.EntityFrameworkCore;
 
 
@@ -11,5 +12,6 @@ namespace CRMRepository
     {
     }
     public DbSet<ApiDriver> ApiDriver { get; set; }
+    public DbSet<ParentBranch> ParentBranch { get; set; }
   }
 }
