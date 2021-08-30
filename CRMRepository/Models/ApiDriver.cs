@@ -14,8 +14,6 @@ namespace CRMRepository.Models
     [DataContract]
     public class ApiDriver
     {
-        //public object Body;
-
         [DataMember]
         public Guid _Id { get; set; }
         [DataMember]
@@ -31,8 +29,6 @@ namespace CRMRepository.Models
         [DataMember]
         public string VehicleNo { get; set; }
         [DataMember]
-        public string ApiUrl { get; set; }
-        [DataMember]
         public Nullable<int> CreatedBy { get; set; }
         public Nullable<DateTime> CreatedDate { get; set; }
         [DataMember]
@@ -41,6 +37,5 @@ namespace CRMRepository.Models
         public Nullable<int> UpdatedBy { get; set; }
         [DataMember]
         public Nullable<bool> IsActive { get; set; }
-
     }
 }

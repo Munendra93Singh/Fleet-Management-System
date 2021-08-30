@@ -44,13 +44,14 @@ namespace CRMRepository.Repository
             }
             return entity;
         }
-
-
-
-        public void Update(T entity)
+        
+        public T Update(T entity)
         {
             this.CRMContext.Set<T>().Update(entity);
+            this.CRMContext.SaveChanges();
+            return entity;
         }
+
         public void Delete(T entity)
         {
             this.CRMContext.Set<T>().Remove(entity);

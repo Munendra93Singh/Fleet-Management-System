@@ -8,7 +8,6 @@ namespace CRMRepository
     public interface IRepositoryWrapper
     {
         IApiDriverRepos ApiDriver { get; }
-        object ApiDriverRequestField { get; }
 
         void Save();
     }

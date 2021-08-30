@@ -11,10 +11,6 @@ namespace CRMRepository
     {
         private CRMContext _cRMContext;
         private ApiDriverRepos _apiDriver;
-        //private IApiTypeDriverRepos _apiTypeDriver;
-        //private readonly object _cRMContext;
-
-
         public IApiDriverRepos ApiDriver
         {
             get
@@ -27,8 +23,6 @@ namespace CRMRepository
                 return _apiDriver;
             }
         }
-
-        public object ApiDriverRequestField => throw new NotImplementedException();
 
         public RepositoryWrapper(CRMContext cRMContext)
         {

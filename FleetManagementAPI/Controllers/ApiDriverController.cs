@@ -22,17 +22,12 @@ namespace FleetManagementAPI.Controllers
         {
             _repoWrapper = repoWrapper;
         }
+
         [Route("GetDriverApi/{Id}")]
         [HttpGet]
         public ApiDriver GetDriverApi(Guid Id)
         {
-
             ApiDriver apiDrivers = _repoWrapper.ApiDriver.FindByCondition(x => x._Id == Id).FirstOrDefault();
-           // apiDrivers.ApiDriverRequestField = _repoWrapper.ApiDriverRequestField.FindByCondition(x => x.ApiMasterId == apiDrivers.Id);
-           // apiDrivers.ApiTypDriver = _repoWrapper.ApiTypeDriver.FindByCondition(x => x.Id == apiDrivers.ApiTypeMasterId).FirstOrDefault();
-
-            //apiDrivers.ApiRequestDriver = _repoWrapper.ApiRequestDriver.FindByCondition(x => x.Id == apiDrivers.ApiRequestDriverId).FirstOrDefault();
-
             return apiDrivers;
         }
 
@@ -41,10 +36,9 @@ namespace FleetManagementAPI.Controllers
         public ApiDriver GetDriverApiByID(Guid Id)
         {
             ApiDriver apiDrivers = _repoWrapper.ApiDriver.FindByCondition(x => x._Id == Id).FirstOrDefault();
-           // apiDrivers.Body = _repoWrapper.ApiDriverRequestField.FindByCondition(x => x.ApiDriverId == apiDrivers.Id).ToDictionary(dict => dict.key, dict => dict.Value);
-
             return apiDrivers;
         }
+
         [Route("GetApiDriver")]
         [HttpGet]
         public IEnumerable<ApiDriver> GetApiDrivers()
@@ -52,6 +46,7 @@ namespace FleetManagementAPI.Controllers
             IEnumerable<ApiDriver> apiDrivers = _repoWrapper.ApiDriver.FindAll();
             return apiDrivers;
         }
+
         [Route("AddApiDriver")]
         [HttpPost]
         public ApiDriver AddApiDriver(ApiDriver apiDrivers)
