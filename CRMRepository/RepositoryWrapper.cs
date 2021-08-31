@@ -12,7 +12,10 @@ namespace CRMRepository
     {
         private CRMContext _cRMContext;
         private IApiDriverRepos _apiDriver;
-        private IParentBranchRepos _ParentBranch;
+        private IParentBranchRepos _parentBranch;
+        private ITruckTypeRepos _truckType;
+        private ITruckDetailsRepos _truckDetails;
+        private ITruckCompartmentRepos _truckCompartment;
         public IApiDriverRepos ApiDriver
         {
             get
@@ -30,15 +33,51 @@ namespace CRMRepository
         {
             get
             {
-                if (_ParentBranch == null)
+                if (_parentBranch == null)
                 {
-                    _ParentBranch = new ParentBranchRepos(_cRMContext);
+                    _parentBranch = new ParentBranchRepos(_cRMContext);
 
                 }
-                return _ParentBranch;
+                return _parentBranch;
             }
         }
 
+        public ITruckTypeRepos TruckType
+        {
+            get
+            {
+                if (_truckType == null)
+                {
+                    _truckType = new TruckTypeRepos(_cRMContext);
+
+                }
+                return _truckType;
+            }
+        }
+        public ITruckDetailsRepos TruckDetails
+        {
+            get
+            {
+                if (_truckDetails == null)
+                {
+                    _truckDetails = new TruckDetailsRepos(_cRMContext);
+
+                }
+                return _truckDetails;
+            }
+        }
+        public ITruckCompartmentRepos TruckCompartment
+        {
+            get
+            {
+                if (_truckCompartment == null)
+                {
+                    _truckCompartment = new TruckCompartmentRepos(_cRMContext);
+
+                }
+                return _truckCompartment;
+            }
+        }
         public RepositoryWrapper(CRMContext cRMContext)
         {
             _cRMContext = cRMContext;

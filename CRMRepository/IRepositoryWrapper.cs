@@ -10,7 +10,9 @@ namespace CRMRepository
     {
         IApiDriverRepos ApiDriver { get; }
         IParentBranchRepos ParentBranch { get; }
-
+        ITruckTypeRepos TruckType { get; }
+        ITruckDetailsRepos TruckDetails { get; }
+        ITruckCompartmentRepos TruckCompartment { get; }
         void Save();
     }
 }

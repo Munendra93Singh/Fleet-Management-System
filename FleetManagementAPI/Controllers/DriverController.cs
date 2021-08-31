@@ -18,17 +18,17 @@ namespace FleetManagementAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ApiDriverController : ControllerBase
+    public class DriverController : ControllerBase
     {
         private IRepositoryWrapper _repoWrapper;
-        public ApiDriverController(IRepositoryWrapper repoWrapper)
+        public DriverController(IRepositoryWrapper repoWrapper)
         {
             _repoWrapper = repoWrapper;
         }
 
-        [Route("GetApiDriver")]
+        [Route("GetDriver")]
         [HttpGet]
-        public ApiResult<IEnumerable<ApiDriver>> GetApiDriver()
+        public ApiResult<IEnumerable<ApiDriver>> GetDriver()
         {
             ApiResult<IEnumerable<ApiDriver>> result = new ApiResult<IEnumerable<ApiDriver>> { ResponseStatus = false };
             try
@@ -46,9 +46,9 @@ namespace FleetManagementAPI.Controllers
         }
 
 
-        [Route("GetDriverApi/{Id}")]
+        [Route("GetDriverById")]
         [HttpGet]
-        public ApiResult<ApiDriver> GetDriverApi(Guid Id)
+        public ApiResult<ApiDriver> GetDriverById(Guid Id)
         {
             ApiResult<ApiDriver> result = new ApiResult<ApiDriver> { ResponseStatus = false };
             try
@@ -67,24 +67,16 @@ namespace FleetManagementAPI.Controllers
 
 
 
-        [Route("AddApiDriver")]
+        [Route("AddDriver")]
         [HttpPost]
-        public ApiResult<ApiDriver> AddApiDriver(ApiDriver apiDrivers)
+        public ApiResult<ApiDriver> AddDriver(ApiDriver apiDrivers)
         {
             ApiResult<ApiDriver> result = new ApiResult<ApiDriver> { ResponseStatus = false };
             try
             {
-                //if (apiDrivers.ImageUrl != null)
-                //{
-                //    using (MemoryStream ms = new MemoryStream(Convert.FromBase64String(apiDrivers.ImageUrl)))
-                //    {
-                //        using (Bitmap bm2 = new Bitmap(ms))
-                //        {
-                //            bm2.Save("SavingPath" + "ImageName.jpg");
-                //        }
-                //    }
-                //}
                 apiDrivers.IsActive = true;
+                apiDrivers.CreatedBy = 1;
+                apiDrivers.CreatedDate = DateTime.Now;
                 result.data = _repoWrapper.ApiDriver.Create(apiDrivers);
                 result.ResponseStatus = true;
                 result.StatusCode = FleetManagementRepository.Models.StatusCode.Success.GetHashCode();
@@ -93,7 +85,7 @@ namespace FleetManagementAPI.Controllers
             }
             catch (Exception ex)
             {
-                throw ex;
+                result.Message = ex.Message;
             }
             return result;
         }

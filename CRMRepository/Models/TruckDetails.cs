@@ -7,24 +7,30 @@ namespace FleetManagementRepository.Models
 {
     [SerializableAttribute]
     [DataContract]
-    public class ParentBranch
+    public class TruckDetails
     {
         [DataMember]
         public int Id { get; set; }
         [DataMember]
-        public string Name { get; set; }
+        public int ParentBranchId { get; set; }
         [DataMember]
-        public string CompanyName { get; set; }
+        public int TruckTypeId { get; set; }
         [DataMember]
-        public string Address1 { get; set; }
+        public string EldDeviceNo { get; set; }
         [DataMember]
-        public string Address2 { get; set; }
+        public string TruckNo { get; set; }
         [DataMember]
-        public string City { get; set; }
+        public string GpsPosition { get; set; }
         [DataMember]
-        public string State { get; set; }
+        public bool EldMonitored { get; set; }
         [DataMember]
-        public string Pin { get; set; }
+        public string TruckPlate { get; set; }
+        [DataMember]
+        public string CurrentOdoMeter { get; set; }
+        [DataMember]
+        public bool AutoRFID { get; set; }
+        [DataMember]
+        public string ImageUrl { get; set; }
         [DataMember]
         public Nullable<int> CreatedBy { get; set; }
         [DataMember]
@@ -34,7 +40,10 @@ namespace FleetManagementRepository.Models
         [DataMember]
         public Nullable<int> UpdatedBy { get; set; }
         [DataMember]
-        public Nullable<bool> IsActive { get; set; }
-        public IEnumerable<TruckType> TruckType { get; set; }
+        public bool IsActive { get; set; }
+        [DataMember]
+        public bool IsDeleted { get; set; }
+        public IEnumerable<TruckCompartment> TruckCompartment { get; set; }
+
     }
 }
