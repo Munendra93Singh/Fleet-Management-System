@@ -13,6 +13,7 @@ namespace CRMRepository
         ITruckTypeRepos TruckType { get; }
         ITruckDetailsRepos TruckDetails { get; }
         ITruckCompartmentRepos TruckCompartment { get; }
+        ITruckDriverDetailsRepos TruckDriverDetails { get; }
         void Save();
     }
 }

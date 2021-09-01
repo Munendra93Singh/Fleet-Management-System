@@ -72,7 +72,7 @@ namespace FleetManagementAPI.Controllers
 
         [Route("AddDriver")]
         [HttpPost]
-        public ApiResult<DriverDetails> AddDriver(DriverDetails apiDrivers)
+        public ApiResult<DriverDetails> AddDriver(DriverDetails driverDetail)
         {
             ApiResult<DriverDetails> result = new ApiResult<DriverDetails> { ResponseStatus = false };
             try
@@ -84,16 +84,22 @@ namespace FleetManagementAPI.Controllers
                 {
                     System.IO.Directory.CreateDirectory(path); //Create directory if it doesn't exist
                 }
-                string imgPath = Path.Combine(path, apiDrivers.ImageUrl);
-                byte[] imageBytes = Convert.FromBase64String(apiDrivers.ImgStr);
-                //FileContentResult fileContent=  File(imageBytes, "image/jpeg");
-                System.IO.File.WriteAllBytes(imgPath, imageBytes);
-                apiDrivers.ImageUrl = imgPath;
-                apiDrivers.ImgStr = "";
-                apiDrivers.IsActive = true;
-                apiDrivers.CreatedBy = 1;
-                apiDrivers.CreatedDate = DateTime.Now;
-                result.data = _repoWrapper.DriverDetails.Create(apiDrivers);
+                string imgPath = Path.Combine(path, driverDetail.ImageUrl);
+                if (!string.IsNullOrEmpty( driverDetail.ImgStr))
+                {
+                    string convert = driverDetail.ImgStr.Replace("data:image/png;base64,", string.Empty);
+                    byte[] imageBytes = Convert.FromBase64String(convert);
+                    //FileContentResult fileContent=  File(imageBytes, "image/jpeg");
+                    System.IO.File.WriteAllBytes(imgPath, imageBytes);
+                    driverDetail.ImageUrl = driverDetail.ImageUrl;
+                    driverDetail.ImgStr = "";
+                }
+                
+               
+                driverDetail.IsActive = true;
+                driverDetail.CreatedBy = 1;
+                driverDetail.CreatedDate = DateTime.Now;
+                result.data = _repoWrapper.DriverDetails.Create(driverDetail);
                 result.ResponseStatus = true;
                 result.StatusCode = FleetManagementRepository.Models.StatusCode.Success.GetHashCode();
                 result.Message = "Data Save Successfully !!";

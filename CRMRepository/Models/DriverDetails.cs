@@ -35,6 +35,22 @@ namespace CRMRepository.Models
         [DataMember]
         public int ParentBranchId { get; set; }
         [DataMember]
+        public string GoogleAddress { get; set; }
+        [DataMember]
+        public string Gender { get; set; }
+        [DataMember]
+        public string Address1 { get; set; }
+        [DataMember]
+        public string Address2 { get; set; }
+        [DataMember]
+        public string Pincode { get; set; }
+        [DataMember]
+        public string type { get; set; }
+        [DataMember]
+        public float latitude { get; set; }
+        [DataMember]
+        public float longitude { get; set; }
+        [DataMember]
         public Nullable<int> CreatedBy { get; set; }
         public Nullable<DateTime> CreatedDate { get; set; }
         [DataMember]
@@ -45,6 +61,6 @@ namespace CRMRepository.Models
         public Nullable<bool> IsActive { get; set; }
         [NotMapped]
         public string ImgStr { get; set; }
-        
+
     }
 }

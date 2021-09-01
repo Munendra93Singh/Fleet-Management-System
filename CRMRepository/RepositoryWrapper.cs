@@ -16,6 +16,7 @@ namespace CRMRepository
         private ITruckTypeRepos _truckType;
         private ITruckDetailsRepos _truckDetails;
         private ITruckCompartmentRepos _truckCompartment;
+        private ITruckDriverDetailsRepos _truckDriverDetails;
         public IDriverDetailsRepos DriverDetails
         {
             get
@@ -76,6 +77,18 @@ namespace CRMRepository
 
                 }
                 return _truckCompartment;
+            }
+        }
+        public ITruckDriverDetailsRepos TruckDriverDetails
+        {
+            get
+            {
+                if (_truckDriverDetails == null)
+                {
+                    _truckDriverDetails = new TruckDriverDetailsRepos(_cRMContext);
+
+                }
+                return _truckDriverDetails;
             }
         }
         public RepositoryWrapper(CRMContext cRMContext)
