@@ -21,6 +21,7 @@ namespace FleetManagementAPI.Controllers
     public class DriverController : ControllerBase
     {
         private IRepositoryWrapper _repoWrapper;
+      //  private string webRoot = "E://ezimaxtech/FleetManagementAPI/FleetManagementAPI/Webroot/DriverProfile/";
         public DriverController(IRepositoryWrapper repoWrapper)
         {
             _repoWrapper = repoWrapper;
@@ -28,12 +29,12 @@ namespace FleetManagementAPI.Controllers
 
         [Route("GetDriver")]
         [HttpGet]
-        public ApiResult<IEnumerable<ApiDriver>> GetDriver()
+        public ApiResult<IEnumerable<DriverDetails>> GetDriver()
         {
-            ApiResult<IEnumerable<ApiDriver>> result = new ApiResult<IEnumerable<ApiDriver>> { ResponseStatus = false };
+            ApiResult<IEnumerable<DriverDetails>> result = new ApiResult<IEnumerable<DriverDetails>> { ResponseStatus = false };
             try
             {
-                result.data = _repoWrapper.ApiDriver.FindAll();
+                result.data = _repoWrapper.DriverDetails.FindAll();
                 result.ResponseStatus = true;
                 result.StatusCode = FleetManagementRepository.Models.StatusCode.Success.GetHashCode();
                 result.Message = "Data Send Successfully !!";
@@ -48,12 +49,14 @@ namespace FleetManagementAPI.Controllers
 
         [Route("GetDriverById")]
         [HttpGet]
-        public ApiResult<ApiDriver> GetDriverById(Guid Id)
+        public ApiResult<DriverDetails> GetDriverById(Guid Id)
         {
-            ApiResult<ApiDriver> result = new ApiResult<ApiDriver> { ResponseStatus = false };
+            ApiResult<DriverDetails> result = new ApiResult<DriverDetails> { ResponseStatus = false };
             try
             {
-                result.data = _repoWrapper.ApiDriver.FindByCondition(x => x._Id == Id).FirstOrDefault();
+                DriverDetails apiDriver = _repoWrapper.DriverDetails.FindByCondition(x => x._Id == Id).FirstOrDefault();
+               // apiDriver.ImageUrl = webRoot + apiDriver.ImageUrl;
+                result.data = apiDriver;
                 result.ResponseStatus = true;
                 result.StatusCode = FleetManagementRepository.Models.StatusCode.Success.GetHashCode();
                 result.Message = "Data Send Successfully !!";
@@ -69,15 +72,28 @@ namespace FleetManagementAPI.Controllers
 
         [Route("AddDriver")]
         [HttpPost]
-        public ApiResult<ApiDriver> AddDriver(ApiDriver apiDrivers)
+        public ApiResult<DriverDetails> AddDriver(DriverDetails apiDrivers)
         {
-            ApiResult<ApiDriver> result = new ApiResult<ApiDriver> { ResponseStatus = false };
+            ApiResult<DriverDetails> result = new ApiResult<DriverDetails> { ResponseStatus = false };
             try
             {
+                
+                String path = Directory.GetCurrentDirectory() + "\\Webroot\\DriverProfile\\"; //Path dont change defined into parameter when saving the same
+                //Check if directory exist
+                if (!System.IO.Directory.Exists(path))
+                {
+                    System.IO.Directory.CreateDirectory(path); //Create directory if it doesn't exist
+                }
+                string imgPath = Path.Combine(path, apiDrivers.ImageUrl);
+                byte[] imageBytes = Convert.FromBase64String(apiDrivers.ImgStr);
+                //FileContentResult fileContent=  File(imageBytes, "image/jpeg");
+                System.IO.File.WriteAllBytes(imgPath, imageBytes);
+                apiDrivers.ImageUrl = imgPath;
+                apiDrivers.ImgStr = "";
                 apiDrivers.IsActive = true;
                 apiDrivers.CreatedBy = 1;
                 apiDrivers.CreatedDate = DateTime.Now;
-                result.data = _repoWrapper.ApiDriver.Create(apiDrivers);
+                result.data = _repoWrapper.DriverDetails.Create(apiDrivers);
                 result.ResponseStatus = true;
                 result.StatusCode = FleetManagementRepository.Models.StatusCode.Success.GetHashCode();
                 result.Message = "Data Save Successfully !!";

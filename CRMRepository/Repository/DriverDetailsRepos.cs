@@ -6,9 +6,9 @@ using CRMRepository.Models;
 
 namespace CRMRepository.Repository
 {
-  public  class ApiDriverRepos :RepositoryBase<ApiDriver>, IApiDriverRepos
+  public  class DriverDetailsRepos :RepositoryBase<DriverDetails>, IDriverDetailsRepos
     {
-        public ApiDriverRepos(CRMContext cRMContext):base(cRMContext)
+        public DriverDetailsRepos(CRMContext cRMContext):base(cRMContext)
         {
 
         }

@@ -6,7 +6,7 @@ using CRMRepository.Repository;
 
 namespace CRMRepository.IRepository
 {
-    public interface IApiDriverRepos : IRepositoryBase<ApiDriver>
+    public interface IDriverDetailsRepos : IRepositoryBase<DriverDetails>
     {
 
     }

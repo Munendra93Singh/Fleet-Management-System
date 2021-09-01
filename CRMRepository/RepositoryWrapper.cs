@@ -11,18 +11,18 @@ namespace CRMRepository
     public class RepositoryWrapper : IRepositoryWrapper
     {
         private CRMContext _cRMContext;
-        private IApiDriverRepos _apiDriver;
+        private IDriverDetailsRepos _apiDriver;
         private IParentBranchRepos _parentBranch;
         private ITruckTypeRepos _truckType;
         private ITruckDetailsRepos _truckDetails;
         private ITruckCompartmentRepos _truckCompartment;
-        public IApiDriverRepos ApiDriver
+        public IDriverDetailsRepos DriverDetails
         {
             get
             {
                 if (_apiDriver == null)
                 {
-                    _apiDriver = new ApiDriverRepos(_cRMContext);
+                    _apiDriver = new DriverDetailsRepos(_cRMContext);
                     
                 }
                 return _apiDriver;

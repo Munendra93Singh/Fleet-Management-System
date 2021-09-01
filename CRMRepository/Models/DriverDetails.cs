@@ -12,7 +12,7 @@ namespace CRMRepository.Models
 
     [SerializableAttribute]
     [DataContract]
-    public class ApiDriver
+    public class DriverDetails
     {
         [DataMember]
         public Guid _Id { get; set; }
@@ -29,6 +29,12 @@ namespace CRMRepository.Models
         [DataMember]
         public string VehicleNo { get; set; }
         [DataMember]
+        public string ImageUrl { get; set; }
+        [DataMember]
+        public string CompanyName { get; set; }
+        [DataMember]
+        public int ParentBranchId { get; set; }
+        [DataMember]
         public Nullable<int> CreatedBy { get; set; }
         public Nullable<DateTime> CreatedDate { get; set; }
         [DataMember]
@@ -37,5 +43,8 @@ namespace CRMRepository.Models
         public Nullable<int> UpdatedBy { get; set; }
         [DataMember]
         public Nullable<bool> IsActive { get; set; }
+        [NotMapped]
+        public string ImgStr { get; set; }
+        
     }
 }

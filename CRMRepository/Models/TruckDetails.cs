@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Runtime.Serialization;
 using System.Text;
 
@@ -32,6 +33,8 @@ namespace FleetManagementRepository.Models
         [DataMember]
         public string ImageUrl { get; set; }
         [DataMember]
+        public string VinNumber { get; set; }
+        [DataMember]
         public Nullable<int> CreatedBy { get; set; }
         [DataMember]
         public Nullable<DateTime> CreatedDate { get; set; }
@@ -44,6 +47,8 @@ namespace FleetManagementRepository.Models
         [DataMember]
         public bool IsDeleted { get; set; }
         public IEnumerable<TruckCompartment> TruckCompartment { get; set; }
+        [NotMapped]
+        public string ImgStr { get; set; }
 
     }
 }

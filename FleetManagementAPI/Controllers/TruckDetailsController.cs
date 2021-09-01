@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using CRMRepository;
@@ -14,6 +15,7 @@ namespace FleetManagementAPI.Controllers
     public class TruckDetailsController : ControllerBase
     {
         private IRepositoryWrapper _repoWrapper;
+        
         public TruckDetailsController(IRepositoryWrapper repoWrapper)
         {
             _repoWrapper = repoWrapper;
@@ -26,9 +28,10 @@ namespace FleetManagementAPI.Controllers
             try
             {
                 TruckDetails truckDetailsexist = _repoWrapper.TruckDetails.FindByCondition(x => x.Id == truckDetails.Id).FirstOrDefault();
-
+               
                 if (truckDetailsexist != null && truckDetailsexist.Id > 0)
                 {
+
                     truckDetailsexist.TruckCompartment = _repoWrapper.TruckCompartment.FindByCondition(x => x.TruckDetailsId == truckDetailsexist.Id);
                     result.data = truckDetailsexist;
                     result.ResponseStatus = true;
@@ -67,6 +70,19 @@ namespace FleetManagementAPI.Controllers
                     compartment.ForEach(x => x.CreatedDate = DateTime.Now);
                     truckDetails.TruckCompartment = compartment;
                 }
+                //Path dont change defined into parameter when saving the same
+                String path = Directory.GetCurrentDirectory() + "\\Webroot\\TruckDetailImg\\";
+                //Check if directory exist
+                if (!System.IO.Directory.Exists(path))
+                {
+                    System.IO.Directory.CreateDirectory(path); //Create directory if it doesn't exist
+                }
+                string imgPath = Path.Combine(path, truckDetails.ImageUrl);
+                byte[] imageBytes = Convert.FromBase64String(truckDetails.ImgStr);
+                //FileContentResult fileContent=  File(imageBytes, "image/jpeg");
+                System.IO.File.WriteAllBytes(imgPath, imageBytes);
+                truckDetails.ImgStr = "";
+                truckDetails.ImageUrl = imgPath;
                 result.data = _repoWrapper.TruckDetails.Create(truckDetails);
                 result.ResponseStatus = true;
                 result.StatusCode = FleetManagementRepository.Models.StatusCode.Success.GetHashCode();
