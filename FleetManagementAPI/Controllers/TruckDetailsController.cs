@@ -77,10 +77,11 @@ namespace FleetManagementAPI.Controllers
                 {
                     System.IO.Directory.CreateDirectory(path); //Create directory if it doesn't exist
                 }
-                string imgPath = Path.Combine(path, truckDetails.ImageUrl);
                 if (!string.IsNullOrEmpty(truckDetails.ImgStr))
                 {
-                    string convert = truckDetails.ImgStr.Replace("data:image/png;base64,", string.Empty);
+                    string imgPath = Path.Combine(path, truckDetails.ImageUrl);
+                   // string convert = truckDetails.ImgStr.Replace("data:image/png;base64,", string.Empty);
+                    string convert = truckDetails.ImgStr.Replace("data:image/jpg;base64,", string.Empty);
                     byte[] imageBytes = Convert.FromBase64String(convert);
                     //FileContentResult fileContent=  File(imageBytes, "image/jpeg");
                     System.IO.File.WriteAllBytes(imgPath, imageBytes);
