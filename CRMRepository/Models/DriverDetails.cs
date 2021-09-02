@@ -47,9 +47,9 @@ namespace CRMRepository.Models
         [DataMember]
         public string type { get; set; }
         [DataMember]
-        public float latitude { get; set; }
+        public Nullable<double> latitude { get; set; }
         [DataMember]
-        public float longitude { get; set; }
+        public Nullable<double> longitude { get; set; }
         [DataMember]
         public Nullable<int> CreatedBy { get; set; }
         public Nullable<DateTime> CreatedDate { get; set; }
