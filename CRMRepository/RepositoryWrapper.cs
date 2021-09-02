@@ -16,6 +16,19 @@ namespace CRMRepository
         private ITruckTypeRepos _truckType;
         private ITruckDetailsRepos _truckDetails;
         private ITruckCompartmentRepos _truckCompartment;
+        private IGeolocationDetailsRepos _geolocation;
+        public IGeolocationDetailsRepos Geolocation
+        {
+            get
+            {
+                if (_geolocation == null)
+                {
+                    _geolocation = new GeolocationDetailsRepos(_cRMContext);
+
+                }
+                return _geolocation;
+            }
+        }
         public IDriverDetailsRepos DriverDetails
         {
             get
@@ -78,6 +91,9 @@ namespace CRMRepository
                 return _truckCompartment;
             }
         }
+
+        public object GeolocationDetails => throw new NotImplementedException();
+
         public RepositoryWrapper(CRMContext cRMContext)
         {
             _cRMContext = cRMContext;
