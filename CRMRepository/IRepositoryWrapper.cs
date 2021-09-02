@@ -16,6 +16,7 @@ namespace CRMRepository
         IGeolocationDetailsRepos Geolocation { get; }
         object GeolocationDetails { get; }
 
+        ITruckDriverDetailsRepos TruckDriverDetails { get; }
         void Save();
     }
 }

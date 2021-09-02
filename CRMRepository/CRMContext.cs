@@ -17,5 +17,6 @@ namespace CRMRepository
         public DbSet<TruckDetails> TruckDetails { get; set; }
         public DbSet<TruckCompartment> TruckCompartment { get; set; }
         public DbSet<Geolocation> Geolocation { get; set; }
+        public DbSet<TruckDriverDetails> TruckDriverDetails { get; set; }
     }
 }
