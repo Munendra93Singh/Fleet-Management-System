@@ -69,7 +69,6 @@ namespace FleetManagementAPI.Controllers
         }
 
 
-
         [Route("AddDriver")]
         [HttpPost]
         public ApiResult<DriverDetails> AddDriver(DriverDetails driverDetail)
@@ -87,12 +86,16 @@ namespace FleetManagementAPI.Controllers
 
                 if (!string.IsNullOrEmpty(driverDetail.ImgStr))
                 {
-                    string imgPath = Path.Combine(path, driverDetail.ImageUrl);
-                    string convert = driverDetail.ImgStr.Replace("data:image/jpg;base64,", string.Empty);
+                    string exten = new FileInfo(driverDetail.ImageUrl).Extension;
+                    string Filename = Guid.NewGuid().ToString() + exten;
+                    string imgPath = Path.Combine(path, Filename);
+                    string convert = driverDetail.ImgStr.Replace("data:image/png;base64,", string.Empty)
+                        .Replace("data:image/jpg;base64,", string.Empty)
+                        .Replace("data:image/jpeg;base64,", string.Empty);
                     byte[] imageBytes = Convert.FromBase64String(convert);
                     //FileContentResult fileContent=  File(imageBytes, "image/jpeg");
                     System.IO.File.WriteAllBytes(imgPath, imageBytes);
-                    driverDetail.ImageUrl = driverDetail.ImageUrl;
+                    driverDetail.ImageUrl = Filename;
                     driverDetail.ImgStr = "";
                 }
 

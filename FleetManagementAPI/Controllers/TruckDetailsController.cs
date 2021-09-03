@@ -20,6 +20,26 @@ namespace FleetManagementAPI.Controllers
         {
             _repoWrapper = repoWrapper;
         }
+
+        [Route("GetTruckDetails")]
+        [HttpGet]
+        public ApiResult<IEnumerable<TruckDetails>> GetTruckDetails()
+        {
+            ApiResult<IEnumerable<TruckDetails>> result = new ApiResult<IEnumerable<TruckDetails>> { ResponseStatus = false };
+            try
+            {
+                result.data = _repoWrapper.TruckDetails.FindAll();
+                result.ResponseStatus = true;
+                result.StatusCode = FleetManagementRepository.Models.StatusCode.Success.GetHashCode();
+                result.Message = "Data Send Successfully !!";
+            }
+            catch (Exception ex)
+            {
+                result.Message = ex.Message;
+            }
+            return result;
+        }
+
         [Route("GetTruckDetailById")]
         [HttpPost]
         public ApiResult<TruckDetails> GetTruckDetailById(TruckDetails truckDetails)
@@ -51,7 +71,7 @@ namespace FleetManagementAPI.Controllers
             }
             return result;
         }
-
+       
         [Route("AddTruckDetail")]
         [HttpPost]
         public ApiResult<TruckDetails> AddTruckDetail(TruckDetails truckDetails)
@@ -77,15 +97,19 @@ namespace FleetManagementAPI.Controllers
                 {
                     System.IO.Directory.CreateDirectory(path); //Create directory if it doesn't exist
                 }
+
                 if (!string.IsNullOrEmpty(truckDetails.ImgStr))
                 {
-                    string imgPath = Path.Combine(path, truckDetails.ImageUrl);
-                   // string convert = truckDetails.ImgStr.Replace("data:image/png;base64,", string.Empty);
-                    string convert = truckDetails.ImgStr.Replace("data:image/jpg;base64,", string.Empty);
+                    string exten = new FileInfo(truckDetails.ImageUrl).Extension;
+                    string Filename = Guid.NewGuid().ToString() + exten; 
+                    string imgPath = Path.Combine(path, Filename);
+                    string convert = truckDetails.ImgStr.Replace("data:image/png;base64,", string.Empty)
+                        .Replace("data:image/jpg;base64,", string.Empty)
+                        .Replace("data:image/jpeg;base64,", string.Empty);
                     byte[] imageBytes = Convert.FromBase64String(convert);
                     //FileContentResult fileContent=  File(imageBytes, "image/jpeg");
                     System.IO.File.WriteAllBytes(imgPath, imageBytes);
-                    truckDetails.ImageUrl = truckDetails.ImageUrl;
+                    truckDetails.ImageUrl = Filename;
                     truckDetails.ImgStr = "";
                 }
                 result.data = _repoWrapper.TruckDetails.Create(truckDetails);
