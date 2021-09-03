@@ -29,12 +29,6 @@ namespace FleetManagementRepository.Models
         [DataMember]
         public string CurrentOdoMeter { get; set; }
         [DataMember]
-        public string GeoLoaction { get; set; }
-        [DataMember]
-        public string Latitude { get; set; }
-        [DataMember]
-        public string Longitude { get; set; }
-        [DataMember]
         public bool AutoRFID { get; set; }
         [DataMember]
         public string ImageUrl { get; set; }
