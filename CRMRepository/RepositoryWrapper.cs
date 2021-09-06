@@ -17,6 +17,20 @@ namespace CRMRepository
         private ITruckDetailsRepos _truckDetails;
         private ITruckCompartmentRepos _truckCompartment;
         private IGeolocationDetailsRepos _geolocation;
+        private IUserOtpDetailsRepos _userOtp;
+
+        public IUserOtpDetailsRepos UserOtp
+        {
+            get
+            {
+                if (_userOtp == null)
+                {
+                    _userOtp = new UserOtpDetailsRepos(_cRMContext);
+                }
+                return _userOtp;
+            }
+        }
+
         public IGeolocationDetailsRepos Geolocation
         {
             get
@@ -29,6 +43,7 @@ namespace CRMRepository
                 return _geolocation;
             }
         }
+
         private ITruckDriverDetailsRepos _truckDriverDetails;
         public IDriverDetailsRepos DriverDetails
         {
@@ -92,9 +107,7 @@ namespace CRMRepository
                 return _truckCompartment;
             }
         }
-
-        public object GeolocationDetails => throw new NotImplementedException();
-
+      
         public ITruckDriverDetailsRepos TruckDriverDetails
         {
             get
@@ -107,6 +120,7 @@ namespace CRMRepository
                 return _truckDriverDetails;
             }
         }
+
         public RepositoryWrapper(CRMContext cRMContext)
         {
             _cRMContext = cRMContext;

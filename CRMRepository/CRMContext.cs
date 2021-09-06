@@ -1,4 +1,5 @@
 ﻿using CRMRepository.Models;
+using FleetManagementRepository.IRepository;
 using FleetManagementRepository.Models;
 using Microsoft.EntityFrameworkCore;
 
@@ -18,5 +19,6 @@ namespace CRMRepository
         public DbSet<TruckCompartment> TruckCompartment { get; set; }
         public DbSet<Geolocation> Geolocation { get; set; }
         public DbSet<TruckDriverDetails> TruckDriverDetails { get; set; }
+        public DbSet<UserOtp> UserOtp { get; set; }
     }
 }

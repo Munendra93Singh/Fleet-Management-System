@@ -14,9 +14,11 @@ namespace CRMRepository
         ITruckDetailsRepos TruckDetails { get; }
         ITruckCompartmentRepos TruckCompartment { get; }
         IGeolocationDetailsRepos Geolocation { get; }
-        object GeolocationDetails { get; }
-
+        //object GeolocationDetails { get; }
         ITruckDriverDetailsRepos TruckDriverDetails { get; }
+        IUserOtpDetailsRepos UserOtp { get; }
+
+
         void Save();
     }
 }
